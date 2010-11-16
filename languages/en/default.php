@@ -39,12 +39,13 @@ $GLOBALS['TL_LANG']['MSC']['anonymous']				= 'Anonymous participant';
 $GLOBALS['TL_LANG']['MSC']['answer_correct']		= 'Correct';
 $GLOBALS['TL_LANG']['MSC']['answer_incorrect']		= 'Incorrect';
 $GLOBALS['TL_LANG']['MSC']['answer_points']			= '%s points';
-$GLOBALS['TL_LANG']['MSC']['exam_attempt']			= 'attempt on %s: %s points (%s)';
+$GLOBALS['TL_LANG']['MSC']['exam_attempt']			= 'attempt on %s (%s points - %s)';
 $GLOBALS['TL_LANG']['MSC']['exam_completed']		= 'completed in %s min.';
 $GLOBALS['TL_LANG']['MSC']['exam_incomplete']		= 'incomplete';
 $GLOBALS['TL_LANG']['MSC']['exam_close_complete']	= 'You have answered all questions, do you want to close the exam? You will see your results on the next page.';
 $GLOBALS['TL_LANG']['MSC']['exam_close_incomplete']	= 'Are you sure you want to close the exam? You have not answered all questions!';
 $GLOBALS['TL_LANG']['MSC']['exam_countdown']		= 'You have %s minutes left to complete this exam.';
+$GLOBALS['TL_LANG']['MSC']['examNext']				= 'next';
 
 
 /**

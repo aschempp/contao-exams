@@ -173,9 +173,9 @@ class tl_exam_participants extends Backend
 	{
 		$strName = $GLOBALS['TL_LANG']['MSC']['anonymous'];
 		
-		if ($row['member'] > 0)
+		if ($dc->activeRecord->member > 0)
 		{
-			$objMember = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($row['member']);
+			$objMember = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($dc->activeRecord->member);
 			
 			if ($objMember->numRows)
 			{

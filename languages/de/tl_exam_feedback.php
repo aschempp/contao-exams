@@ -37,12 +37,12 @@ $GLOBALS['TL_LANG']['tl_exam_feedback']['published']		= array('Feedback anzeigen
 /**
  * Buttons
  */
-$GLOBALS['TL_LANG']['tl_exam_feedback']['new']				= array('Neues Feedback', 'Create a new feedback on this exam');
+$GLOBALS['TL_LANG']['tl_exam_feedback']['new']				= array('Neues Feedback', 'Erstelle ein neues Feedback für diese Prüfung');
 $GLOBALS['TL_LANG']['tl_exam_feedback']['edit']				= array('Feedback bearbeiten', 'Feedback ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_exam_feedback']['copy']				= array('Feedback kopieren', 'Feedback ID %s kopieren');
 $GLOBALS['TL_LANG']['tl_exam_feedback']['cut']				= array('Feedback verschieben', 'Feedback ID %s verschieben');
 $GLOBALS['TL_LANG']['tl_exam_feedback']['delete']			= array('Feedback löschen', 'Feedback ID %s löschen');
-$GLOBALS['TL_LANG']['tl_exam_feedback']['show']				= array('Feedbackdetails', 'Details des Feedback ID %s anzeigen');
+$GLOBALS['TL_LANG']['tl_exam_feedback']['show']				= array('Feedback Details', 'Details des Feedback ID %s anzeigen');
 $GLOBALS['TL_LANG']['tl_exam_feedback']['pasteafter']		= array('Davor einfügen', 'Nach Feedback ID %s einfügen');
 $GLOBALS['TL_LANG']['tl_exam_feedback']['pasteinto']		= array('In Feedback einfügen', 'In Feedback ID %s einfügen');
 

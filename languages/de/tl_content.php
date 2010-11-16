@@ -29,5 +29,5 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_content']['exam']	= array('Prüfung', 'Bitte wählen Sie die Prüfung aus, welche Sie anzeigen möchten.');
+$GLOBALS['TL_LANG']['tl_content']['exam']	= array('Prüfung', 'Bitte wählen Sie die Prüfung, welche Sie anzeigen möchten, aus.');
 

@@ -164,7 +164,7 @@ class tl_exam_options extends Backend
 		}
 		
 		return '
-<div style="margin-top: -15px">' . $row['label'] . ' <span style="color:#b3b3b3; padding-left:3px;">[' . (($this->question->type == 'checkbox' && $this->question->mode != 'points') ? ($row['correct'] ? $GLOBALS['TL_LANG']['MSC']['answer_correct'] : $GLOBALS['TL_LANG']['MSC']['answer_incorrect']) : sprintf($GLOBALS['TL_LANG']['MSC']['answer_points'], $row['points'])) . ']</span></div>';
+<div style="margin-top: 5px">' . $row['label'] . ' <span style="color:#b3b3b3; padding-left:3px;">[' . (($this->question->type == 'checkbox' && $this->question->mode != 'points') ? ($row['correct'] ? $GLOBALS['TL_LANG']['MSC']['answer_correct'] : $GLOBALS['TL_LANG']['MSC']['answer_incorrect']) : sprintf($GLOBALS['TL_LANG']['MSC']['answer_points'], $row['points'])) . ']</span></div>';
 	}
 	
 	

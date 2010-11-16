@@ -43,7 +43,7 @@ $GLOBALS['TL_LANG']['tl_exam_options']['edit']					= array('Antwort bearbeiten',
 $GLOBALS['TL_LANG']['tl_exam_options']['copy']					= array('Antwort kopieren', 'Antwort ID %s kopieren');
 $GLOBALS['TL_LANG']['tl_exam_options']['cut']					= array('Antwort verschieben', 'Antwort ID %s verschieben');
 $GLOBALS['TL_LANG']['tl_exam_options']['delete']				= array('Antwort löschen', 'Antwort ID %s löschen');
-$GLOBALS['TL_LANG']['tl_exam_options']['show']					= array('Antwortdetails', 'Antwortdetails von ID %s');
+$GLOBALS['TL_LANG']['tl_exam_options']['show']					= array('Antwortdetails', 'Antwort Details von ID %s');
 $GLOBALS['TL_LANG']['tl_exam_options']['pasteafter']			= array('Danach einfügen', 'Antwort nach ID %s einfügen');
 $GLOBALS['TL_LANG']['tl_exam_options']['pasteinto']				= array('Einfügen', 'Antwort in ID %s einfügen');
 

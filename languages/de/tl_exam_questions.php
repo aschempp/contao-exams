@@ -64,7 +64,7 @@ $GLOBALS['TL_LANG']['tl_exam_questions']['type']['radio']		= 'Single-Choice (Rad
 $GLOBALS['TL_LANG']['tl_exam_questions']['type']['select']		= 'Single-Choice (Select)';
 $GLOBALS['TL_LANG']['tl_exam_questions']['type']['checkbox']	= 'Multiple-Choice (Checkboxen)';
 $GLOBALS['TL_LANG']['tl_exam_questions']['type']['text']		= 'Freier Text';
-$GLOBALS['TL_LANG']['tl_exam_questions']['mode']['points']		= 'Punkte pro Antwortmöglichkeit zusammenrechnen (positive / nevative)';
+$GLOBALS['TL_LANG']['tl_exam_questions']['mode']['points']		= 'Punkte pro Antwortmöglichkeit zusammenrechnen (positive / negative)';
 $GLOBALS['TL_LANG']['tl_exam_questions']['mode']['one']			= 'Eine Antwort muss korrekt sein';
 $GLOBALS['TL_LANG']['tl_exam_questions']['mode']['all']			= 'Alle Antworten müssen korrekt sein';
 

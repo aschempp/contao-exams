@@ -116,7 +116,7 @@ class Exam extends Hybrid
 		$this->Template->formId = 'tl_exam_' . $this->id;
 		$this->Template->formSubmit = 'tl_exam_' . $this->id;
 		$this->Template->action = $this->Environment->request;
-		$this->Template->slabel = 'Submit';
+		$this->Template->slabel = specialchars($GLOBALS['TL_LANG']['MSC']['examNext']);
 		$this->Template->sattributes = '';
 		
 		// Show pagination

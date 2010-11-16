@@ -43,6 +43,7 @@ $GLOBALS['TL_LANG']['tl_exam_options']['edit']					= array('Edit option', 'Edit 
 $GLOBALS['TL_LANG']['tl_exam_options']['copy']					= array('Duplicate option', 'Duplicate option ID %s');
 $GLOBALS['TL_LANG']['tl_exam_options']['cut']					= array('Move option', 'Move option ID %s');
 $GLOBALS['TL_LANG']['tl_exam_options']['delete']				= array('Delete option', 'Delete option ID %s');
+$GLOBALS['TL_LANG']['tl_exam_options']['toggle']				= array('Option ID %s show/not show');
 $GLOBALS['TL_LANG']['tl_exam_options']['show']					= array('Option details', 'Show details of option ID %s');
 $GLOBALS['TL_LANG']['tl_exam_options']['pasteafter']			= array('Paste after', 'Paste after option ID %s');
 $GLOBALS['TL_LANG']['tl_exam_options']['pasteinto']				= array('Paste into', 'Paste into option ID %s');

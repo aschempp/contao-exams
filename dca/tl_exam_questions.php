@@ -115,13 +115,13 @@ $GLOBALS['TL_DCA']['tl_exam_questions'] = array
 	'palettes' => array
 	(
 		'__selector__'					=> array('type', 'mode'),
-		'default'						=> '{question_legend},type,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
-		'radio'							=> '{question_legend},type,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
-		'select'						=> '{question_legend},type,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
-		'checkbox'						=> '{question_legend},type,mode,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
-		'checkboxone'					=> '{question_legend},type,mode,points_correct,points_incorrect,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
-		'checkboxall'					=> '{question_legend},type,mode,points_correct,points_incorrect,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
-		'text'							=> '{question_legend},type,question;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'default'						=> '{question_legend},question,type;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'radio'							=> '{question_legend},question,type;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'select'						=> '{question_legend},question,type;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'checkbox'						=> '{question_legend},question,type,mode;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'checkboxone'					=> '{question_legend},question,type,mode,points_correct,points_incorrect;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'checkboxall'					=> '{question_legend},question,type,mode,points_correct,points_incorrect;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
+		'text'							=> '{question_legend},question,type;{description_legend:hide},description_intro,description_extro,feedback;{publish_legend},published',
 	),
 
 	// Fields
@@ -132,7 +132,7 @@ $GLOBALS['TL_DCA']['tl_exam_questions'] = array
 			'label'						=> &$GLOBALS['TL_LANG']['tl_exam_questions']['type'],
 			'exclude'					=> true,
 			'inputType'					=> 'select',
-			'default'					=> 'radio',
+			'default'					=> 'checkbox',
 			'options'					=> array('radio', 'select', 'checkbox', 'text'),
 			'reference'					=> &$GLOBALS['TL_LANG']['tl_exam_questions']['type'],
 			'eval'						=> array('mandatory'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50'),
