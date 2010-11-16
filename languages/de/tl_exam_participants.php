@@ -1,0 +1,50 @@
+<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+
+/**
+ * TYPOlight webCMS
+ * Copyright (C) 2005-2009 Leo Feyer
+ *
+ * This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation, either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this program. If not, please visit the Free
+ * Software Foundation website at http://www.gnu.org/licenses/.
+ *
+ * PHP version 5
+ * @copyright  Andreas Schempp 2009
+ * @author     Andreas Schempp <andreas@schempp.ch>
+ * @license    http://opensource.org/licenses/lgpl-3.0.html
+ * @version    $Id$
+ */
+
+
+/**
+ * Fields
+ */
+$GLOBALS['TL_LANG']['tl_exam_participants']['member']				= array('Teilnehmer', 'Teilnehmer dieser Prüfung');
+$GLOBALS['TL_LANG']['tl_exam_participants']['attempts_left']		= array('Antritte', 'Antrittsmöglichkeiten, welche der Teilnehmer noch übrig hat. 0 falls es keine Bschränkung gibt.');
+
+
+/**
+ * Buttons
+ */
+$GLOBALS['TL_LANG']['tl_exam_participants']['edit']					= array('Teilnehmer bearbeiten', 'Teilnehmer ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_exam_participants']['delete']				= array('Teilnehmer löschen', 'Teilnehmer ID %s löschen');
+$GLOBALS['TL_LANG']['tl_exam_participants']['show']					= array('Teilnehmer Details', 'Teilnehmer ID %s Details');
+$GLOBALS['TL_LANG']['tl_exam_participants']['export']				= array('Teilnehmer exportieren', 'Teilnehmer ID %s exportieren');
+$GLOBALS['TL_LANG']['tl_exam_participants']['exportall']			= array('CSV Export', 'Alle Resultate als CSV downloaden');
+
+
+/**
+ * Legends
+ */
+$GLOBALS['TL_LANG']['tl_exam_participants']['participant_legend']	= 'Teilnehmer';
+
