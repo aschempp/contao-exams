@@ -48,8 +48,9 @@ $GLOBALS['TL_DCA']['tl_exam_feedback'] = array
 			'mode'						=> 4,
 			'fields'					=> array('points DESC'),
 			'panelLayout'				=> 'filter;search,limit',
+			'disableGrouping'			=> true,
 			'headerFields'				=> array('name', 'displayMode', 'participantMode'),
-			'child_record_callback'		=> array('tl_exam_feedback', 'listRows')
+			'child_record_callback'		=> array('tl_exam_feedback', 'listRows'),
 		),
 		'label' => array
 		(
