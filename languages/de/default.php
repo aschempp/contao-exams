@@ -51,4 +51,8 @@ $GLOBALS['TL_LANG']['MSC']['next']					= 'weiter';
  * Errors
  */
 $GLOBALS['TL_LANG']['ERR']['question_mandatory']	= 'Bitte beantworten Sie alle Fragen.';
+$GLOBALS['TL_LANG']['ERR']['examLoginRequired']		= 'Sie müssen angemeldet sein, um an dieser Prüfung teil zu nehmen.';
+$GLOBALS['TL_LANG']['ERR']['examNotAllowed']		= 'Sie wurden für diese Prüfung nicht angemeldet.';
+$GLOBALS['TL_LANG']['ERR']['examAuthError']			= 'Zugriff auf diese Prüfung ist fehlgeschlagen.';
+$GLOBALS['TL_LANG']['ERR']['examAttemptsReached']	= 'Sie haben die maximal erlaubte Anzahl Versuche erreicht.';
 

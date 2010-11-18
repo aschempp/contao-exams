@@ -30,7 +30,7 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_exam_participants']['member']				= array('Member', 'The member participating in this exam');
-$GLOBALS['TL_LANG']['tl_exam_participants']['attempts_left']		= array('Attempts left', 'Member has this many attempts left to pass the exam. Leave it blank to allow unlimited attempts.');
+$GLOBALS['TL_LANG']['tl_exam_participants']['attempts']				= array('Attempts', 'Member has this many attempts to pass the exam. Leave it blank to allow unlimited attempts.');
 
 
 /**

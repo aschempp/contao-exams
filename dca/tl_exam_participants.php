@@ -102,7 +102,7 @@ $GLOBALS['TL_DCA']['tl_exam_participants'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'default'						=> '{participant_legend},member,attempts_left',
+		'default'						=> '{participant_legend},member,attempts',
 	),
 
 	// Fields
@@ -115,9 +115,9 @@ $GLOBALS['TL_DCA']['tl_exam_participants'] = array
 			'foreignKey'				=> 'tl_member.lastname',
 			'input_field_callback'		=> array('tl_exam_participants', 'memberField'),
 		),
-		'attempts_left' => array
+		'attempts' => array
 		(
-			'label'						=> &$GLOBALS['TL_LANG']['tl_exam_participants']['attempts_left'],
+			'label'						=> &$GLOBALS['TL_LANG']['tl_exam_participants']['attempts'],
 			'inputType'					=> 'text',
 			'eval'						=> array('rgxp'=>'digits', 'maxlength'=>10),
 		)
@@ -175,7 +175,7 @@ class tl_exam_participants extends Backend
 		
 		if ($dc->activeRecord->member > 0)
 		{
-			$objMember = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($dc->activeRecord->member);
+			$objMember = $this->Database->execute("SELECT * FROM tl_member WHERE id={$dc->activeRecord->member}");
 			
 			if ($objMember->numRows)
 			{
@@ -195,11 +195,11 @@ class tl_exam_participants extends Backend
 	{
 		if (!strlen($this->Input->get('act')))
 		{
-			$objExam = $this->Database->prepare("SELECT * FROM tl_exam WHERE id=?")->limit(1)->execute($dc->id);
+			$objExam = $this->Database->execute("SELECT * FROM tl_exam WHERE id={$dc->id}");
 		}
 		else
 		{
-			$objExam = $this->Database->prepare("SELECT e.* FROM tl_exam_participants p LEFT OUTER JOIN tl_exam e ON p.pid=e.id WHERE p.id=?")->limit(1)->execute($dc->id);
+			$objExam = $this->Database->execute("SELECT e.* FROM tl_exam_participants p LEFT OUTER JOIN tl_exam e ON p.pid=e.id WHERE p.id={$dc->id}");
 		}
 		
 		if ($objExam->participantMode == 'anonymous')
@@ -215,7 +215,7 @@ class tl_exam_participants extends Backend
 	 */
 	public function exportAll($dc)
 	{
-		$objResults = $this->Database->prepare("SELECT p.*, r.* FROM tl_exam_participants p LEFT OUTER JOIN tl_exam_results r ON p.id=r.pid WHERE p.pid=?")->execute($dc->id);
+		$objResults = $this->Database->execute("SELECT p.*, r.*, m.firstname, m.lastname FROM tl_exam_participants p LEFT JOIN tl_exam_results r ON p.id=r.pid LEFT OUTER JOIN tl_member m ON p.member=m.id WHERE p.pid={$dc->id}");
 		
 		if (!$objResults->numRows)
 			return '<p class="tl_gerror">No data available.</p>';
@@ -224,6 +224,8 @@ class tl_exam_participants extends Backend
 		$arrRows = array(array
 		(
 			'member',
+			'firstname',
+			'lastname',
 			'ipaddress',
 			'start',
 			'stop',
@@ -236,6 +238,8 @@ class tl_exam_participants extends Backend
 			$row = array
 			(
 				'member'	=> $objResults->member,
+				'firstname'	=> $objResults->firstname,
+				'lastname'	=> $objResults->lastname,
 				'ipaddress'	=> $objResults->ipaddress,
 				'start'		=> $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->start),
 				'stop'		=> (strlen($objResults->stop) ? $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->stop) : ''),

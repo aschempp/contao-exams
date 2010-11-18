@@ -52,4 +52,8 @@ $GLOBALS['TL_LANG']['MSC']['examNext']				= 'next';
  * Errors
  */
 $GLOBALS['TL_LANG']['ERR']['question_mandatory']	= 'Please answer all questions.';
+$GLOBALS['TL_LANG']['ERR']['examLoginRequired']		= 'You must be logged in to access this exam.';
+$GLOBALS['TL_LANG']['ERR']['examNotAllowed']		= 'You are not approved for this exam.';
+$GLOBALS['TL_LANG']['ERR']['examAuthError']			= 'Access to this exam has been denied.';
+$GLOBALS['TL_LANG']['ERR']['examAttemptsReached']	= 'You have reached the maximum number of attempts for this exam.';
 

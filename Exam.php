@@ -55,6 +55,8 @@ class Exam extends Hybrid
 	 */
 	protected $intQuestion = 0;
 	
+	protected $intParticipant = 0;
+	
 	protected $blnSubmit = true;
 	
 	protected $blnHasFeedback = false;
@@ -85,12 +87,20 @@ class Exam extends Hybrid
 		}
 		
 		if (!$this->authenticateParticipant())
-			return '';
+		{
+			$objTemplate = new FrontendTemplate('mod_message');
+			$objTemplate->type = 'error';
+			$objTemplate->message = array_shift($GLOBALS['TL_ERROR']);
+			return $objTemplate->parse();
+		}
 			
 		// Generate exam and store in session
 		if (!is_array($_SESSION['EXAMS'][$this->id]) && !$this->generatePages())
 		{
-			return '';
+			$objTemplate = new FrontendTemplate('mod_message');
+			$objTemplate->type = 'error';
+			$objTemplate->message = array_shift($GLOBALS['TL_ERROR']);
+			return $objTemplate->parse();
 		}
 		
 		// Pagination
@@ -259,7 +269,10 @@ window.addEvent(\'domready\', function() {
 			case 'member':
 			case 'individual':
 				if (!FE_USER_LOGGED_IN)
+				{
+					$GLOBALS['TL_ERROR'][] = $GLOBALS['TL_LANG']['ERR']['examLoginRequired'];
 					return false;
+				}
 					
 				$this->import('FrontendUser', 'User');
 				
@@ -268,12 +281,41 @@ window.addEvent(\'domready\', function() {
 					$this->members = deserialize($this->members, true);
 					
 					if (!in_array($this->User->id, $this->members))
+					{
+						$GLOBALS['TL_ERROR'][] = $GLOBALS['TL_LANG']['ERR']['examNotAllowed'];
 						return false;
+					}
 				}
 				break;
 				
 			default:
+				$GLOBALS['TL_ERROR'][] = $GLOBALS['TL_LANG']['ERR']['examAuthError'];
 				return false;
+		}
+		
+		if (!$_SESSION['EXAMS'][$this->id]['PARTICIPANT_ID'])
+		{
+			if ($this->User->id > 0)
+			{
+				$objParticipant = $this->Database->prepare("SELECT *, (SELECT COUNT(*) FROM tl_exam_results r WHERE r.pid=p.id) AS previous_attempts FROM tl_exam_participants p WHERE p.member=? AND p.pid=?")->limit(1)->execute($this->User->id, $this->id);
+				
+				if ($objParticipant->numRows)
+				{
+					if ($objParticipant->attempts != '' && $objParticipant->attempts <= $objParticipant->previous_attempts)
+					{
+						$GLOBALS['TL_ERROR'][] = $GLOBALS['TL_LANG']['ERR']['examAttemptsReached'];
+						return false;
+					}
+					
+					$this->intParticipant = $objParticipant->id;
+					$this->Database->prepare("UPDATE tl_exam_participants SET tstamp=? WHERE id=?")->execute(time(), $this->intParticipant);
+				}
+			}
+			
+			if (!$this->intParticipant)
+			{
+				$this->intParticipant = $this->Database->prepare("INSERT INTO tl_exam_participants %s")->set(array('pid'=>$this->id, 'tstamp'=>time(), 'member'=>$this->User->id, 'attempts'=>$this->attempts))->execute()->insertId;
+			}
 		}
 		
 		return true;
@@ -288,9 +330,10 @@ window.addEvent(\'domready\', function() {
 		// Initial settings
 		$_SESSION['EXAMS'][$this->id] = array
 		(
-			'CURRENT'	=> 0,
-			'total'		=> 0,			// Total number of questions
-			'pages'		=> array(),
+			'CURRENT'			=> 0,
+			'total'				=> 0,			// Total number of questions
+			'pages'				=> array(),
+			'PARTICIPANT_ID'	=> $this->intParticipant,
 		);
 		
 		switch( $this->displayMode )
@@ -371,26 +414,8 @@ window.addEvent(\'domready\', function() {
 			return false;
 			
 		// Generate result set
-		$intParticipant = 0;
-		if ($this->User->id > 0)
-		{
-			$objParticipant = $this->Database->prepare("SELECT id FROM tl_exam_participants WHERE member=? AND pid=?")->limit(1)->execute($this->User->id, $this->id);
-			
-			if ($objParticipant->numRows)
-			{
-				$intParticipant = $objParticipant->id;
-				$this->Database->prepare("UPDATE tl_exam_participants SET tstamp=? WHERE id=?")->execute(time(), $intParticipant);
-			}
-		}
-		
-		if (!$intParticipant)
-		{
-			$intParticipant = $this->Database->prepare("INSERT INTO tl_exam_participants %s")->set(array('pid'=>$this->id, 'tstamp'=>time(), 'member'=>$this->User->id))->execute()->insertId;
-		}
-
-		
 		$_SESSION['EXAMS'][$this->id]['RESULT_ID'] = $this->Database->prepare("INSERT INTO tl_exam_results %s")
-																	->set(array('pid'=>$intParticipant, 'tstamp'=>time(), 'ipaddress'=>$this->Environment->ip, 'data'=>serialize(array()), 'start'=>time()))
+																	->set(array('pid'=>$this->intParticipant, 'tstamp'=>time(), 'ipaddress'=>$this->Environment->ip, 'data'=>serialize(array()), 'start'=>time()))
 																	->execute()
 																	->insertId;
 		
