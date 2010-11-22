@@ -558,7 +558,7 @@ window.addEvent(\'domready\', function() {
 							else
 								$blnAll = false;
 						}
-						elseif ($objWidget->value == $option['value'])
+						else
 						{
 							if ($option['correct'])
 								$blnAll = false;
