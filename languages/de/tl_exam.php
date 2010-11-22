@@ -33,6 +33,7 @@ $GLOBALS['TL_LANG']['tl_exam']['name']					= array('Name', 'Bitte geben Sie den 
 $GLOBALS['TL_LANG']['tl_exam']['title']					= array('Seitentitel', 'Bitte geben Sie einen Seitentitel ein.');
 $GLOBALS['TL_LANG']['tl_exam']['jumpTo']				= array('Weiterleitungsseite', 'Bitte geben Sie die Seite an, auf welche der Teilnehmer nach Abschluss der Prüfung weitergeleitet werden soll.');
 $GLOBALS['TL_LANG']['tl_exam']['pointsToPass']			= array('Benötigte Punkteanzahl', 'Bitte geben Sie die Punkteanzahl an, welche benötigt wird, um die Prüfung zu bestehen.');
+$GLOBALS['TL_LANG']['tl_exam']['pointsMax']				= array('Maximale Punkteanzahl', 'Bitte geben Sie die maximal mögliche Punkteanzahl ein. Dies erlaubt eine Prozent-Berechnung der korrekten Antworten.');
 $GLOBALS['TL_LANG']['tl_exam']['displayMode']			= array('Anzeigemodus', 'Bitte wählen Sie aus, wie den Teilnehmern die Fragen angezeigt werden sollen.');
 $GLOBALS['TL_LANG']['tl_exam']['limitQuestions']		= array('Anzahl an Fragen', 'Bitte geben Sie die Anzahl der Fragen (zufällig) ein.0 um alle Fragen anzuzeigen.');
 $GLOBALS['TL_LANG']['tl_exam']['instantFeedback']		= array('Sofortiges Feedback anzeigen', 'Feedback vor dem Anzeigen der neuen Seite anzeigen.');

@@ -237,14 +237,15 @@ class tl_exam_participants extends Backend
 		{
 			$row = array
 			(
-				'member'	=> $objResults->member,
-				'firstname'	=> $objResults->firstname,
-				'lastname'	=> $objResults->lastname,
-				'ipaddress'	=> $objResults->ipaddress,
-				'start'		=> $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->start),
-				'stop'		=> (strlen($objResults->stop) ? $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->stop) : ''),
-				'points'	=> $objResults->points,
-				'passed'	=> ($objResults->passed ? '1' : '0'),
+				'member'		=> $objResults->member,
+				'firstname'		=> $objResults->firstname,
+				'lastname'		=> $objResults->lastname,
+				'ipaddress'		=> $objResults->ipaddress,
+				'start'			=> $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->start),
+				'stop'			=> (strlen($objResults->stop) ? $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->stop) : ''),
+				'points'		=> $objResults->points,
+				'percentage'	=> ($objResults->percentage . '%'),
+				'passed'		=> ($objResults->passed ? '1' : '0'),
 			);
 			
 			$arrRows[] = $row;

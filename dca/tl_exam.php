@@ -126,19 +126,19 @@ $GLOBALS['TL_DCA']['tl_exam'] = array
 	'palettes' => array
 	(
 		'__selector__'					=> array('displayMode', 'participantMode'),
-		'default'						=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
-		'single'						=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
-		'random'						=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,limitQuestions,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
-		'page'							=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
-		'pages'							=> '{name_legend},name;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
-		'singlemember'					=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',
-		'randommember'					=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,limitQuestions,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',
-		'pagemember'					=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',
-		'pagesmember'					=> '{name_legend},name;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',		
-		'singleindividual'				=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',
-		'randomindividual'				=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,limitQuestions,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',
-		'pageindividual'				=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',
-		'pagesindividual'				=> '{name_legend},name;{config_legend},jumpTo,displayMode,pointsToPass,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',		
+		'default'						=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
+		'single'						=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
+		'random'						=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,limitQuestions,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
+		'page'							=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
+		'pages'							=> '{name_legend},name;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode;{publish_legend:hide},start,stop',
+		'singlemember'					=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',
+		'randommember'					=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,limitQuestions,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',
+		'pagemember'					=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',
+		'pagesmember'					=> '{name_legend},name;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode,attempts,timeout;{publish_legend:hide},start,stop',		
+		'singleindividual'				=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',
+		'randomindividual'				=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,limitQuestions,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',
+		'pageindividual'				=> '{name_legend},name,title;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',
+		'pagesindividual'				=> '{name_legend},name;{config_legend},jumpTo,displayMode,pointsToPass,pointsMax,instantFeedback,navigation;{participant_legend},participantMode,members,attempts,timeout;{publish_legend:hide},start,stop',		
 	),
 
 	// Fields
@@ -178,6 +178,13 @@ $GLOBALS['TL_DCA']['tl_exam'] = array
 		'pointsToPass' => array
 		(
 			'label'						=> &$GLOBALS['TL_LANG']['tl_exam']['pointsToPass'],
+			'exclude'					=> true,
+			'inputType'					=> 'text',
+			'eval'						=> array('mandatory'=>true, 'rgxp'=>'digits', 'maxlength'=>10, 'tl_class'=>'w50'),
+		),
+		'pointsMax' => array
+		(
+			'label'						=> &$GLOBALS['TL_LANG']['tl_exam']['pointsMax'],
 			'exclude'					=> true,
 			'inputType'					=> 'text',
 			'eval'						=> array('mandatory'=>true, 'rgxp'=>'digits', 'maxlength'=>10, 'tl_class'=>'w50'),

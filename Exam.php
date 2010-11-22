@@ -624,12 +624,15 @@ window.addEvent(\'domready\', function() {
 			$this->arrResult['points'] += $result['points'];
 		}
 		
+		$this->arrResult['percentage'] = round((100 / $this->pointsMax) * $this->arrResult['points']);
+		
 		$arrSet = array
 		(
-			'pid'		=> $this->arrResult['pid'],
-			'tstamp'	=> time(),
-			'points'	=> $this->arrResult['points'],
-			'data'		=> serialize($this->arrResult['data']),
+			'pid'			=> $this->arrResult['pid'],
+			'tstamp'		=> time(),
+			'points'		=> $this->arrResult['points'],
+			'percentage'	=> $this->arrResult['percentage'],
+			'data'			=> serialize($this->arrResult['data']),
 		);
 		
 		$this->Database->prepare("UPDATE tl_exam_results %s WHERE id=?")->set($arrSet)->execute($this->arrResult['id']);
@@ -670,6 +673,7 @@ window.addEvent(\'domready\', function() {
 		$_SESSION['EXAMS']['LAST_RESULTS'] = array
 		(
 			'points'		=> $this->arrResult['points'],
+			'percentage'	=> $this->arrResult['percentage'],
 			'feedback'		=> $objFeedback->feedback,
 			'passed'		=> ($this->arrResult['points'] >= $this->pointsToPass ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']),
 		);

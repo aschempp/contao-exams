@@ -32,8 +32,8 @@
 $GLOBALS['TL_LANG']['tl_exam']['name']					= array('Name', 'Enter a name for this exam.');
 $GLOBALS['TL_LANG']['tl_exam']['title']					= array('Page title', 'Enter a title for the page.');
 $GLOBALS['TL_LANG']['tl_exam']['jumpTo']				= array('Redirect page', 'Please choose the page to which visitors will be redirected after submitting the exam.');
-
 $GLOBALS['TL_LANG']['tl_exam']['pointsToPass']			= array('Points required', 'How many points does users need to pass this exam?');
+$GLOBALS['TL_LANG']['tl_exam']['pointsMax']				= array('Maximum points', 'The maximum number of points possible. This will allow to calculate a percentage result.');
 $GLOBALS['TL_LANG']['tl_exam']['displayMode']			= array('Display mode', 'Select how you want to show questions for customers.');
 $GLOBALS['TL_LANG']['tl_exam']['limitQuestions']		= array('Number of questions', 'Please enter the amount of questions you want to show (randomly). Enter 0 for all questions.');
 $GLOBALS['TL_LANG']['tl_exam']['instantFeedback']		= array('Show instant feedback', 'Show feedback before jumping to next page.');
