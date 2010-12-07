@@ -140,6 +140,7 @@ CREATE TABLE `tl_exam_results` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `pid` int(10) unsigned NOT NULL default '0',
   `tstamp` int(10) unsigned NOT NULL default '0',
+  `uniqid` varchar(13) NOT NULL default '',
   `ipaddress` varchar(15) NOT NULL default '',
   `data` blob NULL,
   `passed` char(1) NOT NULL default '',

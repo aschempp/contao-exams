@@ -35,6 +35,23 @@ class ExamHelper extends Frontend
 		
 		if ($arrTag[0] == 'exam')
 		{
+			if ($this->Input->get('uniqid') != '')
+			{
+				$objResult = $this->Database->prepare("SELECT *, (SELECT pid FROM tl_exam_participants p WHERE p.id=r.pid) AS exam FROM tl_exam_results r WHERE r.uniqid=?")->limit(1)->execute($this->Input->get('uniqid'));
+				
+				$objExam = $this->Database->execute("SELECT * FROM tl_exam WHERE id={$objResult->exam}");
+				
+				$objFeedback = $this->Database->prepare("SELECT * FROM tl_exam_feedback WHERE pid=? AND points<=? AND published='1' ORDER BY points DESC")->limit(1)->execute($objResult->exam, $objResult->points);
+				
+				$_SESSION['EXAMS']['LAST_RESULTS'] = array
+				(
+					'points'		=> $objResult->points,
+					'percentage'	=> $objResult->percentage,
+					'feedback'		=> $objFeedback->feedback,
+					'passed'		=> ($objResult->points >= $objExam->pointsToPass ? $GLOBALS['TL_LANG']['MSC']['yes'] : $GLOBALS['TL_LANG']['MSC']['no']),
+				);
+			}
+			
 			return $_SESSION['EXAMS']['LAST_RESULTS'][$arrTag[1]];
 		}
 		

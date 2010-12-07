@@ -415,7 +415,7 @@ window.addEvent(\'domready\', function() {
 			
 		// Generate result set
 		$_SESSION['EXAMS'][$this->id]['RESULT_ID'] = $this->Database->prepare("INSERT INTO tl_exam_results %s")
-																	->set(array('pid'=>$this->intParticipant, 'tstamp'=>time(), 'ipaddress'=>$this->Environment->ip, 'data'=>serialize(array()), 'start'=>time()))
+																	->set(array('pid'=>$this->intParticipant, 'tstamp'=>time(), 'uniqid'=>uniqid(), 'ipaddress'=>$this->Environment->ip, 'data'=>serialize(array()), 'start'=>time()))
 																	->execute()
 																	->insertId;
 		
@@ -688,7 +688,7 @@ window.addEvent(\'domready\', function() {
 		
 		$arrPage = $this->Database->prepare("SELECT * FROM tl_page WHERE id=?")->limit(1)->execute($this->jumpTo)->fetchAssoc();
 		
-		$this->redirect($this->generateFrontendUrl($arrPage));
+		$this->redirect($this->generateFrontendUrl($arrPage) . '?uniqid=' . $this->arrResult['uniqid']);
 	}
 }
 
