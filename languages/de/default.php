@@ -46,6 +46,7 @@ $GLOBALS['TL_LANG']['MSC']['exam_close_complete']	= 'Sie haben alle Fragen beant
 $GLOBALS['TL_LANG']['MSC']['exam_close_incomplete']	= 'Möchten Sie wirklich die Prüfung beenden? Sie haben noch nicht alle Fragen beantwortet.';
 $GLOBALS['TL_LANG']['MSC']['exam_countdown']		= 'Sie haben noch %s Minuten, um die Prüfung zu beenden.';
 $GLOBALS['TL_LANG']['MSC']['next']					= 'weiter';
+$GLOBALS['TL_LANG']['MSC']['examNumbering']			= 'Frage Nr. %s';
 
 /**
  * Errors

@@ -333,6 +333,7 @@ window.addEvent(\'domready\', function() {
 			'CURRENT'			=> 0,
 			'total'				=> 0,			// Total number of questions
 			'pages'				=> array(),
+			'questions'			=> array(),		// Question numbering
 			'PARTICIPANT_ID'	=> $this->intParticipant,
 		);
 		
@@ -436,6 +437,13 @@ window.addEvent(\'domready\', function() {
 		$objTemplate->setData($objQuestion->row());
 		
 		$objTemplate->class = 'question ' . ($this->intQuestion%2 ? 'even' : 'odd') . ($this->intQuestion == 0 ? ' first' : '');
+		
+		// Question numbering
+		if (!$_SESSION['EXAMS'][$this->id]['questions'][$intId])
+			$_SESSION['EXAMS'][$this->id]['questions'][$intId] = (int)end($_SESSION['EXAMS'][$this->id]['questions']) + 1;
+		
+		$objTemplate->numbering = $_SESSION['EXAMS'][$this->id]['questions'][$intId];
+		$objTemplate->numberingLabel = sprintf($GLOBALS['TL_LANG']['MSC']['examNumbering'], $_SESSION['EXAMS'][$this->id]['questions'][$intId]);
 		
 		$arrData = array
 		(

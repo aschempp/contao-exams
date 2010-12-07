@@ -1,4 +1,5 @@
 <div class="<?php echo $this->class; ?>">
+<h4><?php echo $this->numberingLabel; ?></h4>
 <p><?php echo $this->question; ?></p>
 <?php if (strlen($this->description_intro)): ?>
 

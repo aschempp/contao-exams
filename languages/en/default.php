@@ -46,6 +46,7 @@ $GLOBALS['TL_LANG']['MSC']['exam_close_complete']	= 'You have answered all quest
 $GLOBALS['TL_LANG']['MSC']['exam_close_incomplete']	= 'Are you sure you want to close the exam? You have not answered all questions!';
 $GLOBALS['TL_LANG']['MSC']['exam_countdown']		= 'You have %s minutes left to complete this exam.';
 $GLOBALS['TL_LANG']['MSC']['examNext']				= 'next';
+$GLOBALS['TL_LANG']['MSC']['examNumbering']			= 'Question No. %s';
 
 
 /**
