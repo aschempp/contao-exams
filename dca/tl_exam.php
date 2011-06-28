@@ -247,14 +247,14 @@ $GLOBALS['TL_DCA']['tl_exam'] = array
 			'exclude'					=> true,
 			'label'						=> &$GLOBALS['TL_LANG']['tl_exam']['start'],
 			'inputType'					=> 'text',
-			'eval'						=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+			'eval'						=> array('rgxp'=>'date', 'datepicker'=>(version_compare(VERSION, '2.9', '>') ? true : $this->getDatePickerString()), 'tl_class'=>'w50 wizard'),
 		),
 		'stop' => array
 		(
 			'exclude'					=> true,
 			'label'						=> &$GLOBALS['TL_LANG']['tl_exam']['stop'],
 			'inputType'					=> 'text',
-			'eval'						=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard'),
+			'eval'						=> array('rgxp'=>'date', 'datepicker'=>(version_compare(VERSION, '2.9', '>') ? true : $this->getDatePickerString()), 'tl_class'=>'w50 wizard'),
 		),
 	)
 );

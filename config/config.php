@@ -31,10 +31,11 @@
  */
 $GLOBALS['BE_MOD']['content']['exams'] = array
 (
-	'tables'		=> array('tl_exam', 'tl_exam_questions', 'tl_exam_options', 'tl_exam_pages', 'tl_exam_feedback', 'tl_exam_participants'),
-	'icon'			=> 'system/modules/exams/html/icon.png',
-	'stylesheet'	=> 'system/modules/exams/html/backend.css',
-	'exportall'		=> array('tl_exam_participants', 'exportAll'),
+	'tables'				=> array('tl_exam', 'tl_exam_questions', 'tl_exam_options', 'tl_exam_pages', 'tl_exam_feedback', 'tl_exam_participants'),
+	'icon'					=> 'system/modules/exams/html/icon.png',
+	'stylesheet'			=> 'system/modules/exams/html/backend.css',
+	'exportParticipants'	=> array('tl_exam_participants', 'exportParticipants'),
+	'exportResults'			=> array('tl_exam_participants', 'exportResults'),
 );
 
 

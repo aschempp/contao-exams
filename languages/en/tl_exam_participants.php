@@ -39,8 +39,8 @@ $GLOBALS['TL_LANG']['tl_exam_participants']['attempts']				= array('Attempts', '
 $GLOBALS['TL_LANG']['tl_exam_participants']['edit']					= array('Edit participant', 'Edit participant ID %s');
 $GLOBALS['TL_LANG']['tl_exam_participants']['delete']				= array('Delete participant', 'Delete participant ID %s');
 $GLOBALS['TL_LANG']['tl_exam_participants']['show']					= array('Participant details', 'Show details of participant ID %s');
-$GLOBALS['TL_LANG']['tl_exam_participants']['export']				= array('Participant details', 'Show details of participant ID %s');
-$GLOBALS['TL_LANG']['tl_exam_participants']['exportall']			= array('CSV export', 'Download all results as CSV');
+$GLOBALS['TL_LANG']['tl_exam_participants']['exportParticipants']	= array('Participants CSV', 'Download all participants as CSV');
+$GLOBALS['TL_LANG']['tl_exam_participants']['exportResults']		= array('Results CSV', 'Download results as CSV');
 
 
 /**

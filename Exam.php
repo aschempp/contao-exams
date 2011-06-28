@@ -540,7 +540,7 @@ window.addEvent(\'domready\', function() {
 		{
 			$objWidget->validate();
 			
-			if ($objWidget->hasErrors() || (!$this->navigation && !strlen($objWidget->value)))
+			if ($objWidget->hasErrors() || (!$this->navigation && $objWidget->value == ''))
 			{
 				$this->blnSubmit = false;
 				
@@ -632,14 +632,17 @@ window.addEvent(\'domready\', function() {
 			$this->arrResult['points'] += $result['points'];
 		}
 		
-		$this->arrResult['percentage'] = round((100 / $this->pointsMax) * $this->arrResult['points']);
+		if ($this->pointsMax > 0)
+		{
+			$this->arrResult['percentage'] = round((100 / $this->pointsMax) * $this->arrResult['points']);
+		}
 		
 		$arrSet = array
 		(
 			'pid'			=> $this->arrResult['pid'],
 			'tstamp'		=> time(),
 			'points'		=> $this->arrResult['points'],
-			'percentage'	=> $this->arrResult['percentage'],
+			'percentage'	=> (int)$this->arrResult['percentage'],
 			'data'			=> serialize($this->arrResult['data']),
 		);
 		

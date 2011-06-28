@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_exam_questions'] = array
 		'dataContainer'					=> 'Table',
 		'enableVersioning'				=> true,
 		'ptable'						=> 'tl_exam',
-		'ctables'						=> array('tl_exam_options'),
+		'ctable'						=> array('tl_exam_options'),
 	),
 
 	// List

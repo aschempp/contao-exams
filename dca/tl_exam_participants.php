@@ -60,10 +60,17 @@ $GLOBALS['TL_DCA']['tl_exam_participants'] = array
 		),
 		'global_operations' => array
 		(
-			'exportall' => array
+			'exportParticipants' => array
 			(
-				'label'					=> &$GLOBALS['TL_LANG']['tl_exam_participants']['exportall'],
-				'href'					=> 'key=exportall',
+				'label'					=> &$GLOBALS['TL_LANG']['tl_exam_participants']['exportParticipants'],
+				'href'					=> 'key=exportParticipants',
+				'class'					=> 'header_export_all',
+				'attributes'			=> 'onclick="Backend.getScrollOffset();"',
+			),
+			'exportResults' => array
+			(
+				'label'					=> &$GLOBALS['TL_LANG']['tl_exam_participants']['exportResults'],
+				'href'					=> 'key=exportResults',
 				'class'					=> 'header_export_all',
 				'attributes'			=> 'onclick="Backend.getScrollOffset();"',
 			),
@@ -211,9 +218,9 @@ class tl_exam_participants extends Backend
 	
 	
 	/**
-	 * Export all results of an exam
+	 * Export all participants of an exam
 	 */
-	public function exportAll($dc)
+	public function exportParticipants($dc)
 	{
 		$objResults = $this->Database->execute("SELECT p.*, r.*, m.firstname, m.lastname FROM tl_exam_participants p LEFT JOIN tl_exam_results r ON p.id=r.pid LEFT OUTER JOIN tl_member m ON p.member=m.id WHERE p.pid={$dc->id}");
 		
@@ -254,7 +261,71 @@ class tl_exam_participants extends Backend
 		// CSV ausgeben
 		$strCSV = '';
 		header('Content-Type: text/plain, charset=UTF-8; encoding=UTF-8');
-		header("Content-Disposition: attachment; filename=exam_" . $dc->id . ".csv");
+		header("Content-Disposition: attachment; filename=exam_participants_" . $dc->id . ".csv");
+		foreach( $arrRows as $arrRow )
+		{
+			$strCSV .= '"' . implode('"' . "\t" . '"', $arrRow) . '"' . "\n";
+		}
+		
+		echo chr(255).chr(254).mb_convert_encoding($strCSV, 'UTF-16LE', 'UTF-8');
+		
+		exit;
+	}
+	
+	
+	/**
+	 * Export all results of an exam
+	 */
+	public function exportResults($dc)
+	{
+		$objResults = $this->Database->execute("SELECT p.*, r.* FROM tl_exam_participants p LEFT JOIN tl_exam_results r ON p.id=r.pid WHERE p.pid={$dc->id}");
+		
+		if (!$objResults->numRows)
+		{
+			return '<p class="tl_gerror">No data available.</p>';
+		}
+			
+		
+		$arrQuestions = array();
+		$arrResults = array();
+		$arrRows = array();
+		
+		while( $objResults->next() )
+		{
+			$arrData = deserialize($objResults->data, true);
+			
+			foreach( $arrData as $question => $result )
+			{
+				$arrQuestions[] = $question;
+				$arrResults[$objResults->pid][$question] = is_array($result['answer']) ? implode($result['answer']) : $result['answer'];
+			}
+		}
+		
+		$row = array('member');
+		$arrQuestions = array_unique($arrQuestions);
+		$objQuestions = $this->Database->execute("SELECT * FROM tl_exam_questions WHERE id IN (" . implode(',', $arrQuestions) . ") ORDER BY id=" . implode(' DESC, id=', $arrQuestions) . " DESC");
+		while( $objQuestions->next() )
+		{
+			$row[] = $objQuestions->question;
+		}
+		$arrRows[] = $row;
+		
+		foreach( $arrResults as $member => $result )
+		{
+			$row = array($member);
+			
+			foreach( $arrQuestions as $question )
+			{
+				$row[] = $result[$question];
+			}
+			
+			$arrRows[] = $row;
+		}
+		
+		// CSV ausgeben
+		$strCSV = '';
+		header('Content-Type: text/plain, charset=UTF-8; encoding=UTF-8');
+		header("Content-Disposition: attachment; filename=exam_results_" . $dc->id . ".csv");
 		foreach( $arrRows as $arrRow )
 		{
 			$strCSV .= '"' . implode('"' . "\t" . '"', $arrRow) . '"' . "\n";

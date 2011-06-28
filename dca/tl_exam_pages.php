@@ -57,7 +57,6 @@ $GLOBALS['TL_DCA']['tl_exam_pages'] = array
 		(
 			'fields'					=> array('title'),
 			'format'					=> '%s',
-//			'format'					=> '%s <span style="color:#b3b3b3; padding-left:3px;">[%s]</span>',
 		),
 		'global_operations' => array
 		(
@@ -142,14 +141,14 @@ $GLOBALS['TL_DCA']['tl_exam_pages'] = array
 			'exclude'					=> true,
 			'label'						=> &$GLOBALS['TL_LANG']['tl_exam_pages']['start'],
 			'inputType'					=> 'text',
-			'eval'						=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'						=> array('rgxp'=>'date', 'datepicker'=>(version_compare(VERSION, '2.9', '>') ? true : $this->getDatePickerString()), 'tl_class'=>'w50 wizard')
 		),
 		'stop' => array
 		(
 			'exclude'					=> true,
 			'label'						=> &$GLOBALS['TL_LANG']['tl_exam_pages']['stop'],
 			'inputType'					=> 'text',
-			'eval'						=> array('rgxp'=>'date', 'datepicker'=>$this->getDatePickerString(), 'tl_class'=>'w50 wizard')
+			'eval'						=> array('rgxp'=>'date', 'datepicker'=>(version_compare(VERSION, '2.9', '>') ? true : $this->getDatePickerString()), 'tl_class'=>'w50 wizard')
 		),
 	)
 );
