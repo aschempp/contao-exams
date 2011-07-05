@@ -283,11 +283,8 @@ class tl_exam_participants extends Backend
 		{
 			return '<p class="tl_gerror">No data available.</p>';
 		}
-			
 		
-		$arrQuestions = array();
-		$arrResults = array();
-		$arrRows = array();
+		$arrRows = array(array('Frage/Antwort', 'Frage-ID'), array('Antwort-ID', ''));
 		
 		while( $objResults->next() )
 		{
@@ -295,32 +292,45 @@ class tl_exam_participants extends Backend
 			
 			foreach( $arrData as $question => $result )
 			{
-				$arrQuestions[] = $question;
-				$arrResults[$objResults->pid][$question] = is_array($result['answer']) ? implode(',', $result['answer']) : $result['answer'];
+				if (is_array($result['answer']))
+				{
+					foreach( $result['answer'] as $id )
+					{
+						$arrResults[$question][$id] = (int)$arrResults[$question][$id] + 1;
+					}
+				}
+				else
+				{
+					$arrResults[$question][$result['answer']] = (int)$arrResults[$question][$result['answer']] + 1;
+				}
 			}
 		}
+
+		$objQuestions = $this->Database->execute("SELECT * FROM tl_exam_questions WHERE pid={$dc->id} AND type!='text' ORDER BY sorting");
+		$arrQuestions = $objQuestions->fetchEach('id');
+		$objOptions = $this->Database->execute("SELECT * FROM tl_exam_options WHERE pid IN (" . implode(',', $arrQuestions) . ") ORDER BY pid=" . implode(' DESC, pid=', $arrQuestions) . " DESC, sorting");
 		
-		$row = array('member');
-		$arrQuestions = array_unique($arrQuestions);
-		$objQuestions = $this->Database->execute("SELECT * FROM tl_exam_questions WHERE id IN (" . implode(',', $arrQuestions) . ") ORDER BY id=" . implode(' DESC, id=', $arrQuestions) . " DESC");
+		while( $objOptions->next() )
+		{
+			$arrRows[0][] = $objOptions->label;
+			$arrRows[1][] = $objOptions->id;
+		}
+		
+		$objQuestions->reset();
+		
 		while( $objQuestions->next() )
 		{
-			$row[] = $objQuestions->question;
-		}
-		$arrRows[] = $row;
-		
-		foreach( $arrResults as $member => $result )
-		{
-			$row = array($member);
+			$row = array($objQuestions->question, $objQuestions->id);
 			
-			foreach( $arrQuestions as $question )
+			$objOptions->reset();
+			while( $objOptions->next() )
 			{
-				$row[] = $result[$question];
+				$row[] = $objOptions->pid == $objQuestions->id ? (int)$arrResults[$objQuestions->id][$objOptions->id] : '';
 			}
 			
 			$arrRows[] = $row;
 		}
-
+		
 		// CSV ausgeben
 		$strCSV = '';
 		header('Content-Type: text/plain, charset=UTF-8; encoding=UTF-8');
@@ -341,6 +351,8 @@ class tl_exam_participants extends Backend
 	 */
 	public function showResults($dc)
 	{
+		$GLOBALS['TL_CSS'][] = 'system/modules/exams/html/print.css|print';
+		
 		$objResult = $this->Database->prepare("SELECT r.*, p.member FROM tl_exam_results r LEFT JOIN tl_exam_participants p ON p.id=r.pid WHERE r.id=?")->execute($this->Input->get('result'));
 		
 		if (!$objResult->numRows)
@@ -374,7 +386,7 @@ $strBuffer = '
 
 <div class="tl_listing_container parent_view">
 
-<div class="tl_header" onmouseover="Theme.hoverDiv(this, 1);" onmouseout="Theme.hoverDiv(this, 0);" style="background-color: rgb(235, 253, 215); ">
+<div class="tl_header" onmouseover="Theme.hoverDiv(this, 1);" onmouseout="Theme.hoverDiv(this, 0);">
 <table class="tl_header_table">
   <tbody><tr>
     <td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_exam']['name'][0] . ':</span> </td>

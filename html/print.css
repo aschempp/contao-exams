@@ -1,0 +1,22 @@
+body {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+}
+
+#header, #footer, #left, #tl_buttons, .main_headline {
+	display: none;
+}
+
+.tl_label {
+	font-weight: bold;
+}
+
+.tl_content {
+	margin-top: 15px;
+	padding-top: 15px;
+	border-top: 1px solid #000;
+}
+
+.cte_type {
+	margin-bottom: 10px;
+}
