@@ -36,10 +36,11 @@ $GLOBALS['TL_LANG']['CTE']['exam']					= array('Prüfung');
  * Miscellaneous
  */
 $GLOBALS['TL_LANG']['MSC']['anonymous']				= 'Anonymer Teilnehmer';
+$GLOBALS['TL_LANG']['MSC']['anonymousIP']			= 'mit IP %s';
 $GLOBALS['TL_LANG']['MSC']['answer_correct']		= 'Richtig';
 $GLOBALS['TL_LANG']['MSC']['answer_incorrect']		= 'Falsch';
 $GLOBALS['TL_LANG']['MSC']['answer_points']			= '%s Punkte';
-$GLOBALS['TL_LANG']['MSC']['exam_attempt']			= 'Versuch %s (%s Punkte - %s)';
+$GLOBALS['TL_LANG']['MSC']['exam_attempt']			= 'Versuch %s [%s Punkte (%s Prozent) - %s]';
 $GLOBALS['TL_LANG']['MSC']['exam_completed']		= 'Beantwortet in %s min.';
 $GLOBALS['TL_LANG']['MSC']['exam_incomplete']		= 'Unvollständig';
 $GLOBALS['TL_LANG']['MSC']['exam_close_complete']	= 'Sie haben alle Fragen beantwortet, möchten sie die Prüfung abgeben? Sie sehen Ihr Resultat auf der nächsten Seite.';
@@ -47,6 +48,7 @@ $GLOBALS['TL_LANG']['MSC']['exam_close_incomplete']	= 'Möchten Sie wirklich die
 $GLOBALS['TL_LANG']['MSC']['exam_countdown']		= 'Sie haben noch %s Minuten, um die Prüfung zu beenden.';
 $GLOBALS['TL_LANG']['MSC']['next']					= 'weiter';
 $GLOBALS['TL_LANG']['MSC']['examNumbering']			= 'Frage Nr. %s';
+
 
 /**
  * Errors

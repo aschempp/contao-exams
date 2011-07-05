@@ -29,7 +29,7 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_exam']['name']					= array('Name', 'Bitte geben Sie den Namen der Prüfung ein.');
+$GLOBALS['TL_LANG']['tl_exam']['name']					= array('Prüfungsname', 'Bitte geben Sie den Namen der Prüfung ein.');
 $GLOBALS['TL_LANG']['tl_exam']['title']					= array('Seitentitel', 'Bitte geben Sie einen Seitentitel ein.');
 $GLOBALS['TL_LANG']['tl_exam']['jumpTo']				= array('Weiterleitungsseite', 'Bitte geben Sie die Seite an, auf welche der Teilnehmer nach Abschluss der Prüfung weitergeleitet werden soll.');
 $GLOBALS['TL_LANG']['tl_exam']['pointsToPass']			= array('Benötigte Punkteanzahl', 'Bitte geben Sie die Punkteanzahl an, welche benötigt wird, um die Prüfung zu bestehen.');

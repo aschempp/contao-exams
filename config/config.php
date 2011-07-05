@@ -36,6 +36,7 @@ $GLOBALS['BE_MOD']['content']['exams'] = array
 	'stylesheet'			=> 'system/modules/exams/html/backend.css',
 	'exportParticipants'	=> array('tl_exam_participants', 'exportParticipants'),
 	'exportResults'			=> array('tl_exam_participants', 'exportResults'),
+	'showResults'			=> array('tl_exam_participants', 'showResults'),
 );
 
 

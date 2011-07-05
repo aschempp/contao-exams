@@ -30,7 +30,7 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_exam_participants']['member']				= array('Teilnehmer', 'Teilnehmer dieser Prüfung');
-$GLOBALS['TL_LANG']['tl_exam_participants']['attempts']				= array('Versuche', 'Antrittsmöglichkeiten, welche der Teilnehmer hat. Leer falls es keine Bschränkung gibt.');
+$GLOBALS['TL_LANG']['tl_exam_participants']['attempts']				= array('Versuche', 'Antrittsmöglichkeiten, welche der Teilnehmer hat. Leer falls es keine Beschränkung gibt.');
 
 
 /**

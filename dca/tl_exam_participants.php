@@ -157,13 +157,15 @@ class tl_exam_participants extends Backend
 		{
 			if ($objResults->passed)
 				$blnPassed = true;
-				
-			$arrAttempts[] = sprintf($GLOBALS['TL_LANG']['MSC']['exam_attempt'], $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->start), $objResults->points, ($objResults->stop > 0 ? sprintf($GLOBALS['TL_LANG']['MSC']['exam_completed'], ceil(($objResults->stop - $objResults->start) / 60)) : $GLOBALS['TL_LANG']['MSC']['exam_incomplete']));
+
+			$strLabel = sprintf($GLOBALS['TL_LANG']['MSC']['exam_attempt'], $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResults->start), $objResults->points, $objResults->percentage, ($objResults->stop > 0 ? sprintf($GLOBALS['TL_LANG']['MSC']['exam_completed'], ceil(($objResults->stop - $objResults->start) / 60)) : $GLOBALS['TL_LANG']['MSC']['exam_incomplete']));
+
+			$arrAttempts[] = '<a href="' . $this->addToUrl('key=showResults&result=' . $objResults->id) . '">' . $strLabel . '</a>';
 		}
 		
 		if (!$row['member'])
 		{
-			$strName .= ' from IP ' . $objResults->ipaddress;
+			$strName .= ' ' . sprintf($GLOBALS['TL_LANG']['MSC']['anonymousIP'], $objResults->ipaddress);
 		}
 		
 		return '
@@ -297,7 +299,7 @@ class tl_exam_participants extends Backend
 			foreach( $arrData as $question => $result )
 			{
 				$arrQuestions[] = $question;
-				$arrResults[$objResults->pid][$question] = is_array($result['answer']) ? implode($result['answer']) : $result['answer'];
+				$arrResults[$objResults->pid][$question] = is_array($result['answer']) ? implode(',', $result['answer']) : $result['answer'];
 			}
 		}
 		
@@ -321,7 +323,7 @@ class tl_exam_participants extends Backend
 			
 			$arrRows[] = $row;
 		}
-		
+
 		// CSV ausgeben
 		$strCSV = '';
 		header('Content-Type: text/plain, charset=UTF-8; encoding=UTF-8');
@@ -334,6 +336,115 @@ class tl_exam_participants extends Backend
 		echo chr(255).chr(254).mb_convert_encoding($strCSV, 'UTF-16LE', 'UTF-8');
 		
 		exit;
+	}
+	
+	
+	/**
+	 * Show details of the given results
+	 */
+	public function showResults($dc)
+	{
+		$objResult = $this->Database->prepare("SELECT * FROM tl_exam_results WHERE id=?")->execute($this->Input->get('result'));
+		
+		if (!$objResult->numRows)
+		{
+			return '<p class="tl_gerror">Result not found</p>';
+		}
+		
+		$objQuestions = $this->Database->prepare("SELECT q.*, e.name AS exam_name, displayMode, participantMode FROM tl_exam e LEFT JOIN tl_exam_questions q ON e.id=q.pid WHERE e.id=? ORDER BY q.sorting")->execute($this->Input->get('id'));
+		$this->loadLanguageFile('tl_exam');
+		
+		
+		$strName = $GLOBALS['TL_LANG']['MSC']['anonymous'] . ' ' . sprintf($GLOBALS['TL_LANG']['MSC']['anonymousIP'], $objResult->ipaddress);
+		
+		if ($row['member'] > 0)
+		{
+			$objMember = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($row['member']);
+			
+			if ($objMember->numRows)
+			{
+				$strName = $objMember->lastname . ', ' . $objMember->firstname . ' [' . $objMember->username . ']';
+			}
+		}
+		
+		$strAttempt = sprintf($GLOBALS['TL_LANG']['MSC']['exam_attempt'], $this->parseDate($GLOBALS['TL_CONFIG']['datimFormat'], $objResult->start), $objResult->points, $objResult->percentage, ($objResult->stop > 0 ? sprintf($GLOBALS['TL_LANG']['MSC']['exam_completed'], ceil(($objResult->stop - $objResult->start) / 60)) : $GLOBALS['TL_LANG']['MSC']['exam_incomplete']));
+		
+$strBuffer = '
+
+<div id="tl_buttons">
+<a href="' . str_replace('&key=showResults&result=' . $objResult->id, '', $this->Environment->request) . '" class="header_back" title="Zurück" accesskey="b" onclick="Backend.getScrollOffset();">Zurück</a>
+</div>
+
+<div class="tl_listing_container parent_view">
+
+<div class="tl_header" onmouseover="Theme.hoverDiv(this, 1);" onmouseout="Theme.hoverDiv(this, 0);" style="background-color: rgb(235, 253, 215); ">
+<table class="tl_header_table">
+  <tbody><tr>
+    <td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_exam']['name'][0] . ':</span> </td>
+    <td>' . $objQuestions->exam_name . '</td>
+  </tr>
+  <tr>
+    <td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_exam']['displayMode'][0] . ':</span> </td>
+    <td>' . $GLOBALS['TL_LANG']['tl_exam'][$objQuestions->displayMode] . '</td>
+  </tr>
+  <tr>
+    <td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_exam']['participantMode'][0] . ':</span> </td>
+    <td>' . $GLOBALS['TL_LANG']['tl_exam'][$objQuestions->participantMode] . '</td>
+  </tr>
+  <tr>
+    <td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_exam_participants']['member'][0] . ':</span> </td>
+    <td>' . $strName . '</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>' . $strAttempt . '</td>
+  </tr>
+</tbody></table>
+</div>';
+		
+		$arrData = deserialize($objResult->data, true);
+		$objQuestions->reset();
+		
+		while( $objQuestions->next() )
+		{
+			$arrResult = (array)$arrData[$objQuestions->id];
+			
+			$strBuffer .= '
+<div class="tl_content block" onmouseover="Theme.hoverDiv(this, 1);" onmouseout="Theme.hoverDiv(this, 0);" style="">
+<div class="cte_type" style="color:#666966;padding-bottom:5px"><strong>' . $objQuestions->question . '</strong> (ID ' . $objQuestions->id . ')</div>
+<div class="block" style="margin-top: -10px">';
+
+			if ($objQuestions->type == 'text')
+			{
+				$strBuffer .= $arrResult['answer'];
+			}
+			else
+			{
+				$objOptions = $this->Database->execute("SELECT * FROM tl_exam_options WHERE pid={$objQuestions->id} ORDER BY sorting");
+	
+				while( $objOptions->next() )
+				{
+					switch( $objQuestions->type )
+					{
+						case 'checkbox':
+							$strBuffer .= '<div><input type="checkbox" disabled="disabled"' . (in_array($objOptions->id, (array)$arrResult['answer']) ? ' checked="checked"' : '') . '> <label style="color:#' . ($objOptions->correct ? '8AB858' : 'C55') . '">' . $objOptions->label . ' (ID ' . $objOptions->id . ')</label></div>';
+							break;
+	
+						case 'radio':
+						case 'select':
+							$strBuffer .= '<div><input type="radio" disabled="disabled"' . (in_array($objOptions->id, (array)$arrResult['answer']) ? ' checked="checked"' : '') . '> <label style="color:#' . ($objOptions->correct ? '8AB858' : 'C55') . '">' . $objOptions->label . ' (ID ' . $objOptions->id . ')</label></div>';
+							break;
+					}
+				}
+			}
+
+			$strBuffer .= '
+</div>
+</div>';
+
+		}
+		
+		return $strBuffer . '</div>';
 	}
 }
 
