@@ -145,7 +145,7 @@ class tl_exam_participants extends Backend
 			
 			if ($objMember->numRows)
 			{
-				$strName = $objMember->lastname . ', ' . $objMember->firstname . ' [' . $objMember->username . ']';
+				$strName = $objMember->lastname . ', ' . $objMember->firstname;
 			}
 		}
 		
@@ -163,10 +163,7 @@ class tl_exam_participants extends Backend
 			$arrAttempts[] = '<a href="' . $this->addToUrl('key=showResults&result=' . $objResults->id) . '">' . $strLabel . '</a>';
 		}
 		
-		if (!$row['member'])
-		{
-			$strName .= ' ' . sprintf($GLOBALS['TL_LANG']['MSC']['anonymousIP'], $objResults->ipaddress);
-		}
+		$strName .= ' ' . sprintf($GLOBALS['TL_LANG']['MSC']['anonymousIP'], $objResults->ipaddress);
 		
 		return '
 <div class="cte_type ' . ($blnPassed ? '' : 'un') . 'published" style="background-image:url(system/modules/exams/html/exam_' . ($blnPassed ? 'passed' : 'failed') . '.png)"><strong>' . $strName . '</strong></div>
@@ -344,7 +341,7 @@ class tl_exam_participants extends Backend
 	 */
 	public function showResults($dc)
 	{
-		$objResult = $this->Database->prepare("SELECT * FROM tl_exam_results WHERE id=?")->execute($this->Input->get('result'));
+		$objResult = $this->Database->prepare("SELECT r.*, p.member FROM tl_exam_results r LEFT JOIN tl_exam_participants p ON p.id=r.pid WHERE r.id=?")->execute($this->Input->get('result'));
 		
 		if (!$objResult->numRows)
 		{
@@ -357,13 +354,13 @@ class tl_exam_participants extends Backend
 		
 		$strName = $GLOBALS['TL_LANG']['MSC']['anonymous'] . ' ' . sprintf($GLOBALS['TL_LANG']['MSC']['anonymousIP'], $objResult->ipaddress);
 		
-		if ($row['member'] > 0)
+		if ($objResult->member > 0)
 		{
-			$objMember = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($row['member']);
+			$objMember = $this->Database->prepare("SELECT * FROM tl_member WHERE id=?")->limit(1)->execute($objResult->member);
 			
 			if ($objMember->numRows)
 			{
-				$strName = $objMember->lastname . ', ' . $objMember->firstname . ' [' . $objMember->username . ']';
+				$strName = $objMember->lastname . ', ' . $objMember->firstname . ' ' . sprintf($GLOBALS['TL_LANG']['MSC']['anonymousIP'], $objResult->ipaddress);
 			}
 		}
 		
@@ -411,7 +408,8 @@ $strBuffer = '
 			
 			$strBuffer .= '
 <div class="tl_content block" onmouseover="Theme.hoverDiv(this, 1);" onmouseout="Theme.hoverDiv(this, 0);" style="">
-<div class="cte_type" style="color:#666966;padding-bottom:5px"><strong>' . $objQuestions->question . '</strong> (ID ' . $objQuestions->id . ')</div>
+<div style="color:#b3b3b3;float:right;padding-left:10px">ID: ' . $objQuestions->id . '</div>
+<div class="cte_type" style="color:#666966;padding-bottom:10px"><strong>' . $objQuestions->question . '</strong></div>
 <div class="block" style="margin-top: -10px">';
 
 			if ($objQuestions->type == 'text')
@@ -427,12 +425,12 @@ $strBuffer = '
 					switch( $objQuestions->type )
 					{
 						case 'checkbox':
-							$strBuffer .= '<div><input type="checkbox" disabled="disabled"' . (in_array($objOptions->id, (array)$arrResult['answer']) ? ' checked="checked"' : '') . '> <label style="color:#' . ($objOptions->correct ? '8AB858' : 'C55') . '">' . $objOptions->label . ' (ID ' . $objOptions->id . ')</label></div>';
+							$strBuffer .= '<div><div style="color:#b3b3b3;float:right;padding-left:10px;padding-top:2px">ID: ' . $objOptions->id . '</div><input type="checkbox" disabled="disabled"' . (in_array($objOptions->id, (array)$arrResult['answer']) ? ' checked="checked"' : '') . '> <label style="color:#' . ($objOptions->correct ? '8AB858' : 'C55') . '">' . $objOptions->label . '</label></div>';
 							break;
 	
 						case 'radio':
 						case 'select':
-							$strBuffer .= '<div><input type="radio" disabled="disabled"' . (in_array($objOptions->id, (array)$arrResult['answer']) ? ' checked="checked"' : '') . '> <label style="color:#' . ($objOptions->correct ? '8AB858' : 'C55') . '">' . $objOptions->label . ' (ID ' . $objOptions->id . ')</label></div>';
+							$strBuffer .= '<div><div style="color:#b3b3b3;float:right;padding-left:10px;padding-top:2px">ID: ' . $objOptions->id . '</div><input type="radio" disabled="disabled"' . (in_array($objOptions->id, (array)$arrResult['answer']) ? ' checked="checked"' : '') . '> <label style="color:#' . ($objOptions->correct ? '8AB858' : 'C55') . '">' . $objOptions->label . '</label></div>';
 							break;
 					}
 				}
