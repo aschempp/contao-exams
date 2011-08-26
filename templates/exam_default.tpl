@@ -12,10 +12,11 @@
 
 <form action="<?php echo $this->action; ?>" id="<?php echo $this->formId; ?>" method="post">
 <div class="formbody">
-<input type="hidden" name="FORM_SUBMIT" value="<?php echo $this->formSubmit; ?>" />
+<input type="hidden" name="FORM_SUBMIT" value="<?php echo $this->formSubmit; ?>">
 <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
 <?php echo $this->questions; ?>
 <div class="submit_container"><input type="submit" class="submit" value="<?php echo $this->slabel; ?>"<?php echo $this->sattributes; ?> /></div>
+</div>
 </form>
 <?php echo $this->pagination; ?>
 
