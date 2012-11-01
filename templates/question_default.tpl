@@ -1,6 +1,6 @@
 <div class="<?php echo $this->class; ?>">
 <h4><?php echo $this->numberingLabel; ?></h4>
-<p><?php echo $this->question; ?></p>
+<p><?php echo nl2br($this->question); ?></p>
 <?php if (strlen($this->description_intro)): ?>
 
 <div class="intro"><?php echo $this->description_intro; ?></div>

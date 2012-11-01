@@ -388,7 +388,7 @@ window.addEvent(\'domready\', function() {
 			// Pages and questions in desired order
 			case 'pages':
 				$time = time();
-				$objPages = $this->Database->prepare("SELECT * FROM tl_exam_pages WHERE published='1' AND (start='' OR start<?) AND (stop='' OR stop>?) AND pid=?")->execute($time, $time, $this->id);
+				$objPages = $this->Database->prepare("SELECT * FROM tl_exam_pages WHERE published='1' AND (start='' OR start<?) AND (stop='' OR stop>?) AND pid=? ORDER BY sorting")->execute($time, $time, $this->id);
 				
 				while( $objPages->next() )
 				{
@@ -462,7 +462,7 @@ window.addEvent(\'domready\', function() {
 		if ($objQuestion->type != 'text')
 		{
 			$arrOptions = array();
-			$objOptions = $this->Database->prepare("SELECT * FROM tl_exam_options WHERE pid=?")->execute($objQuestion->id);
+			$objOptions = $this->Database->prepare("SELECT * FROM tl_exam_options WHERE pid=? ORDER BY sorting")->execute($objQuestion->id);
 			
 			while( $objOptions->next() )
 			{

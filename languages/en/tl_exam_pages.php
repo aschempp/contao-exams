@@ -52,6 +52,7 @@ $GLOBALS['TL_LANG']['tl_exam_pages']['pasteinto']		= array('Paste into', 'Paste 
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_exam_pages']['title_legend']	= 'Page title';
-$GLOBALS['TL_LANG']['tl_exam_pages']['publish_legend']	= 'Publishing';
+$GLOBALS['TL_LANG']['tl_exam_pages']['title_legend']		= 'Page title';
+$GLOBALS['TL_LANG']['tl_exam_pages']['questions_legend']	= 'Questions';
+$GLOBALS['TL_LANG']['tl_exam_pages']['publish_legend']		= 'Publishing';
 

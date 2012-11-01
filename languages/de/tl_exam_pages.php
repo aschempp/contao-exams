@@ -52,6 +52,7 @@ $GLOBALS['TL_LANG']['tl_exam_pages']['pasteinto']		= array('In die Seite einfüg
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_exam_pages']['title_legend']	= 'Seitentitel';
-$GLOBALS['TL_LANG']['tl_exam_pages']['publish_legend']	= 'Veröffentlicht';
+$GLOBALS['TL_LANG']['tl_exam_pages']['title_legend']		= 'Seitentitel';
+$GLOBALS['TL_LANG']['tl_exam_pages']['questions_legend']	= 'Fragen';
+$GLOBALS['TL_LANG']['tl_exam_pages']['publish_legend']		= 'Veröffentlicht';
 
